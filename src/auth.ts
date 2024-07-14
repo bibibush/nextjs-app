@@ -1,8 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session, User } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
 import credentials from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient();
 
@@ -32,4 +33,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  session: { strategy: "jwt" },
+  callbacks: {
+    jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    session({ session, token }: { session: Session; token: JWT & User }) {
+      session.user = token;
+      return session;
+    },
+  },
 });
