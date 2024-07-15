@@ -6,4 +6,4 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/api/auth/signin", request.url));
 }
 
-export const config = { matcher: ["/admin", "/user"] };
+export const config = { matcher: ["/admin/:path*", "/user/:path*"] };
