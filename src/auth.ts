@@ -20,7 +20,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        let user = { id: "1", name: "J smith", email: "jsmith@example.com" };
+        let user = {
+          id: "1",
+          name: "J smith",
+          email: "jsmith@example.com",
+          role: "User",
+        };
 
         if (!user) {
           // No user found, so this is their first attempt to login

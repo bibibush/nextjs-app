@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserType {
+  User
+  Admin
+}
+
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -24,6 +29,8 @@ model User {
   // Optional for WebAuthn support
   Authenticator Authenticator[]
   hashedPassword String?
+  
+  UserType UserType @default(User)
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
