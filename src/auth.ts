@@ -24,7 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: "1",
           name: "J smith",
           email: "jsmith@example.com",
-          role: "User",
+          role: "Admin",
         };
 
         if (!user) {
@@ -39,6 +39,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   session: { strategy: "jwt" },
+  pages: {
+    signIn: "/auth/login",
+  },
   callbacks: {
     jwt({ token, user }) {
       return { ...token, ...user };
