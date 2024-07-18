@@ -25,16 +25,26 @@ function Input({
   erros,
 }: InputProps) {
   return (
-    <div className=" relative w-full">
+    <div className="relative w-full">
       {formatPrice && (
-        <span className=" absolute text-neutral-700 top-5 left-2">\</span>
+        <span className="absolute left-2 top-5 text-neutral-700">\</span>
       )}
       <input
-        className={`w-full p-4 pt-6 font-light bg-white rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${
-          formatPrice ? "pl-9" : "pl-4"
-        } ${erros[id] ? "border-rose-500" : "border-neutral-300"} ${
-          erros[id] ? "focus:border-rose-500" : "focus:border-black"
-        }`}
+        className={`
+          w-full 
+          rounded-md
+           bg-white 
+           p-4 
+           pt-6 
+           font-light 
+           outline-none
+           transition 
+           disabled:cursor-not-allowed
+           disabled:opacity-70
+           ${formatPrice ? "pl-9" : "pl-4"}
+           ${erros[id] ? "border-rose-500" : "border-neutral-300"}
+           ${erros[id] ? "focus:border-rose-500" : "focus:border-black"}
+           `}
         id={id}
         disabled={disabled}
         placeholder=""
@@ -42,11 +52,23 @@ function Input({
         {...register(id, { required })}
       />
       <label
-        className={` absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] ${
-          formatPrice ? "left-9" : "left-4"
-        } peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 ${
-          erros[id] ? "text-rose-500" : "text-zinc-400"
-        }`}
+        className={`text-md
+               absolute
+               top-5
+               z-10
+               origin-[0]
+               -translate-y-3 
+               transform 
+               duration-150 
+               ${formatPrice ? "left-9" : "left-4"} 
+               peer-placeholder-shown:translate-y-0 
+               peer-placeholder-shown:scale-100 
+               peer-focus:-translate-y-4 
+               peer-focus:scale-75 
+               ${erros[id] ? "text-rose-500" : "text-zinc-400"}
+               absolute
+               whitespace-normal
+               `}
       ></label>
     </div>
   );
