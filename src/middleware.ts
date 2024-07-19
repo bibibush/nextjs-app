@@ -8,10 +8,7 @@ export async function middleware(request: NextRequest) {
 
   // 로그인된 유저만 접근 가능
 
-  if (
-    (pathName.startsWith("/user") || pathName.startsWith("/admin")) &&
-    !session
-  )
+  if (pathName.match(/^\/user|^\/admin/) && !session)
     return NextResponse.redirect(new URL("/api/auth/signin", request.url));
 
   // 어드민 유저만 접근 가능

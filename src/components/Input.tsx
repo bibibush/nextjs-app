@@ -33,18 +33,18 @@ function Input({
         className={`
           w-full 
           rounded-md
-           bg-white 
-           p-4 
-           pt-6 
-           font-light 
-           outline-none
-           transition 
-           disabled:cursor-not-allowed
-           disabled:opacity-70
-           ${formatPrice ? "pl-9" : "pl-4"}
-           ${erros[id] ? "border-rose-500" : "border-neutral-300"}
-           ${erros[id] ? "focus:border-rose-500" : "focus:border-black"}
-           `}
+          bg-white 
+          p-4 
+          pt-6 
+          font-light 
+          outline-none
+          transition 
+          disabled:cursor-not-allowed
+          disabled:opacity-70
+          ${formatPrice ? "pl-9" : "pl-4"}
+          ${erros[id] ? "border-rose-500" : "border-neutral-300"}
+          ${erros[id] ? "focus:border-rose-500" : "focus:border-black"}
+          `}
         id={id}
         disabled={disabled}
         placeholder=""
@@ -52,7 +52,8 @@ function Input({
         {...register(id, { required })}
       />
       <label
-        className={`text-md
+        className={`
+               text-md
                absolute
                top-5
                z-10
