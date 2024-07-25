@@ -2,7 +2,7 @@ import React from "react";
 import { Control, useController } from "react-hook-form";
 
 interface InputProps {
-  control: Control;
+  control: Control<any>;
   defaultValue?: string;
   id: string;
   label: string;
@@ -11,6 +11,7 @@ interface InputProps {
   formatPrice?: boolean;
   rules?: object;
   name: string;
+  required?: boolean;
 }
 
 function Input({
@@ -21,6 +22,7 @@ function Input({
   type,
   disabled,
   formatPrice,
+  required,
   rules,
   name,
 }: InputProps) {
@@ -39,6 +41,7 @@ function Input({
       )}
       <input
         className={`
+          border-2
           w-full 
           rounded-md
           bg-white 

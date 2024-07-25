@@ -3,22 +3,22 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import axios from "axios";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface HookFormParams {
+  name: string;
   email: string;
   password: string;
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
 
   const { control, handleSubmit } = useForm<HookFormParams>({
-    defaultValues: { email: "", password: "" },
+    defaultValues: { name: "", email: "", password: "" },
   });
 
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -26,8 +26,7 @@ export default function LoginPage() {
   const onSubmit = async (body: HookFormParams) => {
     setLoading(true);
     try {
-      // @ts-ignore
-      const data = await signIn("credentials", body);
+      const { data } = await axios.post("/api/register", body);
       console.log(data);
       router.push("/auth/login");
     } catch (err) {
@@ -43,13 +42,21 @@ export default function LoginPage() {
         className="flex flex-col justify-center gap-4 min-w-[350px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-2xl">Login</h1>
+        <h1 className="text-2xl">Register</h1>
         <Input
           control={control}
           id="email"
           label="Email"
           disabled={isLoading}
           name="email"
+          required
+        />
+        <Input
+          control={control}
+          id="name"
+          label="Name"
+          disabled={isLoading}
+          name="name"
           required
         />
         <Input
@@ -63,8 +70,8 @@ export default function LoginPage() {
         <Button label="Register" />
         <div className="text-center">
           <p className="text-gray-400">
-            Not a member?{" "}
-            <Link href="/auth/register" className="text-black hover:underline">
+            Already a member?{" "}
+            <Link href="/auth/login" className="text-black hover:underline">
               Login
             </Link>
           </p>
