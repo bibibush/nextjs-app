@@ -2,7 +2,6 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,7 +28,6 @@ export default function LoginPage() {
       // @ts-ignore
       const data = await signIn("credentials", body);
       console.log(data);
-      router.push("/auth/login");
     } catch (err) {
       console.log(err);
     } finally {
@@ -60,12 +58,12 @@ export default function LoginPage() {
           name="password"
           required
         />
-        <Button label="Register" />
+        <Button label="Login" />
         <div className="text-center">
           <p className="text-gray-400">
             Not a member?{" "}
             <Link href="/auth/register" className="text-black hover:underline">
-              Login
+              Register
             </Link>
           </p>
         </div>
