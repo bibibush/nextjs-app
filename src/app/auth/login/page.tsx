@@ -56,6 +56,7 @@ export default function LoginPage() {
           label="Password"
           disabled={isLoading}
           name="password"
+          type="password"
           required
         />
         <Button label="Login" />

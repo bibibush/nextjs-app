@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import client from "./lib/prismadb";
+import bcrypt from "bcryptjs";
 
 const prisma = client;
 
@@ -16,24 +17,34 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
     credentials({
       credentials: {
-        username: { label: "Username" },
+        email: { label: "Email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        let user = {
-          id: "1",
-          name: "J smith",
-          email: "jsmith@example.com",
-          role: "Admin",
-        };
-
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("User not found.");
+        if (!credentials.email || !credentials?.password) {
+          throw new Error("invalid credentials");
         }
 
-        // return user object with the their profile data
+        const user = await prisma.user.findUnique({
+          where: {
+            // @ts-ignore
+            email: credentials.email,
+          },
+        });
+        if (!user || !user?.hashedPassword) {
+          throw new Error("invalid credentials");
+        }
+
+        const isCorrectPassword = await bcrypt.compare(
+          // @ts-ignore
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!isCorrectPassword) {
+          throw new Error("invalid credentials");
+        }
+
         return user;
       },
     }),
