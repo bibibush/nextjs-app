@@ -2,7 +2,7 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -27,10 +27,11 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       const { data } = await axios.post("/api/register", body);
-      console.log(data);
       router.push("/auth/login");
     } catch (err) {
-      console.log(err);
+      if (err instanceof AxiosError) {
+        console.log(err.response?.data.error);
+      }
     } finally {
       setLoading(false);
     }
@@ -65,6 +66,7 @@ export default function RegisterPage() {
           label="Password"
           disabled={isLoading}
           name="password"
+          type="password"
           required
         />
         <Button label="Register" />
