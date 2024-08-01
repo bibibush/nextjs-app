@@ -49,6 +49,7 @@ export default function LoginPage() {
           disabled={isLoading}
           name="email"
           required
+          rules={{ required: true }}
         />
         <Input
           control={control}
@@ -58,6 +59,7 @@ export default function LoginPage() {
           name="password"
           type="password"
           required
+          rules={{ required: true }}
         />
         <Button label="Login" />
         <div className="text-center">
