@@ -48,7 +48,6 @@ export default function LoginPage() {
           label="Email"
           disabled={isLoading}
           name="email"
-          required
           rules={{ required: true }}
         />
         <Input
@@ -58,7 +57,6 @@ export default function LoginPage() {
           disabled={isLoading}
           name="password"
           type="password"
-          required
           rules={{ required: true }}
         />
         <Button label="Login" />

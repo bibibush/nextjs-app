@@ -50,7 +50,6 @@ export default function RegisterPage() {
           label="Email"
           disabled={isLoading}
           name="email"
-          required
         />
         <Input
           control={control}
@@ -58,7 +57,6 @@ export default function RegisterPage() {
           label="Name"
           disabled={isLoading}
           name="name"
-          required
         />
         <Input
           control={control}
@@ -67,7 +65,6 @@ export default function RegisterPage() {
           disabled={isLoading}
           name="password"
           type="password"
-          required
         />
         <Button label="Register" />
         <div className="text-center">

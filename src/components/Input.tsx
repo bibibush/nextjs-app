@@ -9,9 +9,8 @@ interface InputProps {
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;
-  rules?: object;
+  rules?: { [key: string]: any };
   name: string;
-  required?: boolean;
 }
 
 function Input({
@@ -22,7 +21,6 @@ function Input({
   type,
   disabled,
   formatPrice,
-  required,
   rules,
   name,
 }: InputProps) {
