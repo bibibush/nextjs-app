@@ -59,7 +59,7 @@ export default function ProductUploadPage() {
           flex-col
           gap-8
         "
-          onSubmit={handleSubmit(onsubmit as SubmitHandler<FieldValues>)}
+          // onSubmit={handleSubmit(onsubmit as SubmitHandler<FieldValues>)}
         >
           <Heading title="Product Upload" subtitle="Upload your product" />
           <ImageUploader
