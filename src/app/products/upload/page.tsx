@@ -7,10 +7,13 @@ import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ImageUploader from "@/components/ImageUploader";
 import Input from "@/components/Input";
+import axios from "axios";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-interface UseHookFormParams {
+export interface UseHookFormParams {
   title: string;
   description: string;
   category: string;
@@ -21,6 +24,8 @@ interface UseHookFormParams {
 }
 
 export default function ProductUploadPage() {
+  const router = useRouter();
+
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const { control, reset, handleSubmit, setValue, watch } =
@@ -38,16 +43,27 @@ export default function ProductUploadPage() {
 
   const imageSrc = watch("imageSrc");
   const category = watch("category");
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
 
-  const onSubmit: SubmitHandler<FieldValues> = ({
-    title,
-    description,
-    category,
-    latitude,
-    longitude,
-    imageSrc,
-    price,
-  }) => {};
+  const KakaoMap = dynamic(() => import("@/components/KakaoMap"), {
+    ssr: false,
+  });
+
+  const onSubmit: SubmitHandler<UseHookFormParams> = (data) => {
+    setLoading(true);
+    axios
+      .post("/api/products", data)
+      .then((res) => {
+        router.push(`/products/${res.data.id}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const setCustomValue = (id: keyof UseHookFormParams, value: any) => {
     setValue(id, value);
@@ -62,7 +78,7 @@ export default function ProductUploadPage() {
           flex-col
           gap-8
         "
-          // onSubmit={handleSubmit(onsubmit as SubmitHandler<FieldValues>)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Heading title="Product Upload" subtitle="Upload your product" />
           <ImageUploader
@@ -113,7 +129,11 @@ export default function ProductUploadPage() {
             ))}
           </div>
           <hr />
-          {/* kakao */}
+          <KakaoMap
+            latitude={latitude}
+            longitude={longitude}
+            setCustomValue={setCustomValue}
+          />
 
           <Button label="상품 생성하기" />
         </form>
