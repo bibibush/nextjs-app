@@ -16,12 +16,15 @@ export default async function getProducts(params: ProductsParams) {
       query.category = category;
     }
 
+    // latitude가 latitude - 0.01 에서 latitude + 0.01사이의 값을 뜻함
     if (latitude) {
       query.latitude = {
         gte: latitude - 0.01,
         lte: latitude + 0.01,
       };
     }
+
+    // longitude가 longitude - 0.01 에서 longitude + 0.01사이의 값을 뜻함
     if (longitude) {
       query.longitude = {
         gte: longitude - 0.01,
