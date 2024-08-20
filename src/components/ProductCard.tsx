@@ -23,7 +23,7 @@ const ProductCard = ({ currentUser, data }: ProductCardProps) => {
       }}
     >
       <div className="flex flex-col w-full gap-2">
-        <div className="relative w-full overflow-hidden aspect-square rounded-xl">
+        <div className="relative w-full overflow-hidden group aspect-square rounded-xl">
           <Image
             src={data.imageSrc}
             fill
