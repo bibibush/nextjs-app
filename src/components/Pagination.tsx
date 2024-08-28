@@ -1,5 +1,8 @@
+"use client";
+
 import usePagination from "@lucasmogari/react-pagination";
 import React, { Fragment } from "react";
+import PaginationLink from "./PaginationLink";
 
 interface PaginationProps {
   page: number;
@@ -21,19 +24,31 @@ function Pagination({ page, totalItems, perPage }: PaginationProps) {
   const arr = new Array(totalPages + 2);
 
   return (
-    <div>
+    <div className="flex items-center justify-center gap-2 mt-4">
       {[...arr].map((_, i) => {
         const { page, disabled, current } = getPageItem(i);
         if (page === "previous") {
-          return <span key={i}>{"<"}</span>;
+          return (
+            <PaginationLink disabled={disabled} page={prevPage} key={i}>
+              {"<"}
+            </PaginationLink>
+          );
         }
         if (page === "next") {
-          return <span key={i}>{">"}</span>;
+          return (
+            <PaginationLink disabled={disabled} page={nextPage} key={i}>
+              {">"}
+            </PaginationLink>
+          );
         }
         if (page === "gap") {
           return <span key={i}>...</span>;
         }
-        return <span key={i}>{page}</span>;
+        return (
+          <PaginationLink active={current} page={page ?? 0} key={i}>
+            {page}
+          </PaginationLink>
+        );
       })}
     </div>
   );
