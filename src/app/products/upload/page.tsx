@@ -13,6 +13,10 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
+const KakaoMap = dynamic(() => import("@/components/KakaoMap"), {
+  ssr: false,
+});
+
 export interface UseHookFormParams {
   title: string;
   description: string;
@@ -45,10 +49,6 @@ export default function ProductUploadPage() {
   const category = watch("category");
   const latitude = watch("latitude");
   const longitude = watch("longitude");
-
-  const KakaoMap = dynamic(() => import("@/components/KakaoMap"), {
-    ssr: false,
-  });
 
   const onSubmit: SubmitHandler<UseHookFormParams> = (data) => {
     setLoading(true);

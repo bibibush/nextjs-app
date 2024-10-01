@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import { categories } from "@/components/categories/Categories";
 import Container from "@/components/Container";
 import ProductInfo from "@/components/products/ProductInfo";
 import ProductsHead from "@/components/products/ProductsHead";
@@ -14,9 +15,12 @@ interface ProductClientProps {
   currentUser: User | null;
 }
 
+const KakaoMap = dynamic(() => import("@/components/KakaoMap"));
+
 function ProductClient({ currentUser, product }: ProductClientProps) {
-  const KakaoMap = dynamic(() => import("@/components/KakaoMap"));
   const router = useRouter();
+
+  const category = categories.find((item) => item.path === product.category);
 
   return (
     <Container>
@@ -29,7 +33,12 @@ function ProductClient({ currentUser, product }: ProductClientProps) {
             currentUser={currentUser}
           />
           <div className="grid grid-cols-1 mt-6 md:grid-cols-2 md:gap-10">
-            <ProductInfo />
+            <ProductInfo
+              user={product.user}
+              category={category}
+              createdAt={product.createdAt}
+              description={product.description}
+            />
             <div>
               <KakaoMap
                 detailPage
